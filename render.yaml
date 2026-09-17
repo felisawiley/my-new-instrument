@@ -9,3 +9,15 @@ services:
     rootDir: twilight_mcp
     buildCommand: pip install "mcp[cli]>=1.2,<2"  # PINNED — mcp 2.x renamed FastMCP (caught in class 2026-09-10, and again on Render 2026-09-17: this buildCommand bypasses pyproject.toml, so the pin must live in BOTH places)
     startCommand: python server.py
+  - type: web
+    name: assignment-mcp
+    runtime: python
+    plan: free
+    rootDir: assignment_mcp   # git submodule — github.com/felisawiley/penn-assignments-mcp
+    buildCommand: pip install "mcp[cli]>=1.2,<2"  # PINNED — see the note on your-first-instrument above
+    startCommand: python server.py
+    envVars:
+      - key: CANVAS_API_TOKEN
+        sync: false   # set in Render's dashboard, never committed
+      - key: CANVAS_BASE_URL
+        value: https://canvas.upenn.edu
