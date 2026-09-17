@@ -5,9 +5,11 @@ connected. It can only guess: no clock lives in a context window. This
 server is the smallest honest fix — and the pattern generalizes to any
 instrument you can imagine. See docs/adr/ for every choice made here.
 """
+import json
 import os
 import random
 from datetime import datetime, timezone
+from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
@@ -31,20 +33,17 @@ def seconds_since(iso_timestamp: str) -> str:
     delta = datetime.now(timezone.utc) - then
     return f"{delta.total_seconds():.0f} seconds ({delta})"
 
-TWILIGHT_QUOTES = [
-    ("Bella", "And so the lion fell in love with the lamb."),
-    ("Edward", "About three things I was absolutely positive. First, Edward was a vampire."),
-    ("Edward", "You are my life now."),
-    ("Bella", "I'd rather die than be with anyone but you."),
-    ("Edward", "I'd rather die than stay away from you."),
-    ("Jacob", "I'll be here. It's what I do."),
-]
+QUOTES_PATH = Path(__file__).parent / "twilight_quotes.json"
+
+def _load_quotes() -> list[dict]:
+    with open(QUOTES_PATH) as f:
+        return json.load(f)
 
 @mcp.tool()
 def twilight_quote() -> str:
     """A random quote from Twilight."""
-    speaker, line = random.choice(TWILIGHT_QUOTES)
-    return f'{speaker}: "{line}"'
+    quote = random.choice(_load_quotes())
+    return f'{quote["speaker"]}: "{quote["line"]}"'
 
 if __name__ == "__main__":
     mcp.run(transport="streamable-http")
