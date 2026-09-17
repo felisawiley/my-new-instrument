@@ -8,11 +8,12 @@ An MCP server that gives a Claude model senses it doesn't have on its own: a clo
 |---|---|
 | `current_time()` | Returns the current UTC and local time. |
 | `seconds_since(iso_timestamp)` | Returns elapsed time since a given ISO timestamp. |
-| `twilight_quote()` | Returns a random line from [`twilight_quotes.json`](twilight_quotes.json) (43 quotes). |
+| `twilight_quote()` | Returns a random line from [`twilight_quotes.json`](twilight_mcp/twilight_quotes.json) (43 quotes). |
 
 ## Run it locally
 
 ```bash
+cd twilight_mcp
 uv run server.py     # starts the server on port 8000
 ```
 
@@ -46,10 +47,10 @@ Free tier note: the instance naps when idle, so the first call after a nap takes
 
 ## Project layout
 
-- [`server.py`](server.py) — the MCP server and its tools.
-- [`twilight_quotes.json`](twilight_quotes.json) — the quote data behind `twilight_quote()`.
+- [`twilight_mcp/server.py`](twilight_mcp/server.py) — the MCP server and its tools.
+- [`twilight_mcp/twilight_quotes.json`](twilight_mcp/twilight_quotes.json) — the quote data behind `twilight_quote()`.
 - [`docs/adr/`](docs/adr) — the reasoning behind this repo's setup choices.
-- [`render.yaml`](render.yaml) — Render deployment config.
+- [`render.yaml`](render.yaml) — Render deployment config (builds/runs from `twilight_mcp/` via `rootDir`).
 
 ## License
 
