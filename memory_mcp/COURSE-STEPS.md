@@ -8,7 +8,8 @@ somewhere that outlives both the server and the chat.*
 
 [`server.py`](server.py), top to bottom. Notice:
 
-- the schema — quote, book, chapter, page, date published, and a taken-back timestamp
+- the schema — quote, speaker, book, chapter, page, date published, and a taken-back timestamp
+- the starter list in `twilight_catalog.json`, which a connection loads onto the shelf
 - three tools — shelve, browse, take back ([ADR-0006](docs/adr/0006-a-shelf-card-is-a-citation.md) is the citation; [ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md) is why the row stays)
 - what happens when `DATABASE_URL` is missing (a pointer, not a crash)
 

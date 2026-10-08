@@ -8,7 +8,7 @@ An MCP server that gives a Claude model senses it doesn't have on its own: a clo
 |---|---|
 | `current_time()` | Returns the current UTC and local time. |
 | `seconds_since(iso_timestamp)` | Returns elapsed time since a given ISO timestamp. |
-| `twilight_quote()` | Returns a random line from [`twilight_quotes.json`](twilight_mcp/twilight_quotes.json) (43 quotes). |
+| `twilight_quote()` | Returns a random line from the shelf in Neon. The starter list is [`twilight_catalog.json`](memory_mcp/twilight_catalog.json). |
 
 ## Run it locally
 
@@ -59,8 +59,8 @@ Render does not ask for `DATABASE_URL` on an existing Blueprint. After `your-fir
 ## Project layout
 
 - [`twilight_mcp/server.py`](twilight_mcp/server.py) — the clock and Twilight-quote tools.
-- [`twilight_mcp/twilight_quotes.json`](twilight_mcp/twilight_quotes.json) — the quote data behind `twilight_quote()`.
-- [`memory_mcp/server.py`](memory_mcp/server.py) — the Twilight shelf (a quote plus where to find it).
+- [`memory_mcp/twilight_catalog.json`](memory_mcp/twilight_catalog.json) — the starter quotes. A connection loads them onto the shelf.
+- [`memory_mcp/server.py`](memory_mcp/server.py) — the Twilight shelf (a quote plus where to find it). `twilight_quote()` reads this table.
 - [`docs/adr/`](docs/adr) — the reasoning behind the Twilight instrument's setup.
 - [`memory_mcp/docs/adr/`](memory_mcp/docs/adr/) — the reasoning behind the memory server.
 - [`render.yaml`](render.yaml) — Render deployment config.
