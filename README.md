@@ -47,7 +47,7 @@ Free tier note: the instance naps when idle, so the first call after a nap takes
 
 ## A memory that outlives the chat
 
-[`memory_mcp/`](memory_mcp/) is the sibling server: one Postgres table and two tools (`record_quote`, `list_quotes`). Quotes survive the end of the conversation because they live in Neon, not in the chat window. Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md). Design choices are [memory_mcp/docs/adr/](memory_mcp/docs/adr/).
+[`memory_mcp/`](memory_mcp/) is the Twilight diary: `react_to_line`, `my_reactions`, and `take_back`. The quote tool can hand out a random line forever; the diary remembers which ones you kept and what you said back. Taken-back entries stay in the table, crossed out ([ADR-0005](memory_mcp/docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md)). Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md).
 
 ```bash
 cd memory_mcp
@@ -60,7 +60,7 @@ Render does not ask for `DATABASE_URL` on an existing Blueprint. After `your-fir
 
 - [`twilight_mcp/server.py`](twilight_mcp/server.py) — the clock and Twilight-quote tools.
 - [`twilight_mcp/twilight_quotes.json`](twilight_mcp/twilight_quotes.json) — the quote data behind `twilight_quote()`.
-- [`memory_mcp/server.py`](memory_mcp/server.py) — the persistent quote memory.
+- [`memory_mcp/server.py`](memory_mcp/server.py) — the Twilight diary (reactions that outlive the chat).
 - [`docs/adr/`](docs/adr) — the reasoning behind the Twilight instrument's setup.
 - [`memory_mcp/docs/adr/`](memory_mcp/docs/adr/) — the reasoning behind the memory server.
 - [`render.yaml`](render.yaml) — Render deployment config.
