@@ -50,7 +50,7 @@ uv run server.py     # port 8000, or whatever PORT is set to
 
 Add the connector (Settings → Connectors → same flow as the Twilight server), then:
 
-- *"Shelve this: … Twilight, chapter First Sight, page 12."*
+- *"Shelve this, speaker Bella: … Twilight, chapter First Sight, page 12."*
 - *"What's on my shelf?"*
 - *"Take back #2."*
 - Now the real test: **start a brand-new conversation** and ask again.
@@ -58,8 +58,10 @@ Add the connector (Settings → Connectors → same flow as the Twilight server)
 
 ## 5. The shelf is yours
 
-A card is a citation: the quote, the book, the chapter, the page, and
-the date published. Book, chapter, and page can be blank. The five main
-books fill the date when you don't. `take_back` still crosses a card out
-and leaves the row. That pair of choices is [ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md)
-and [ADR-0006](docs/adr/0006-a-shelf-card-is-a-citation.md).
+A card is a citation: the quote, the speaker, the book, the chapter, the
+page, and the date published. Speaker, book, chapter, and page can be
+blank. The five main books fill the date when you don't. `take_back`
+still crosses a card out and leaves the row. Those choices are
+[ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md),
+[ADR-0006](docs/adr/0006-a-shelf-card-is-a-citation.md), and
+[ADR-0008](docs/adr/0008-speaker-is-a-column.md).

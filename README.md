@@ -47,7 +47,7 @@ Free tier note: the instance naps when idle, so the first call after a nap takes
 
 ## A memory that outlives the chat
 
-[`memory_mcp/`](memory_mcp/) is a Twilight shelf: `shelve_quote`, `browse_shelf`, and `take_back`. A card keeps the quote, the book, the chapter, the page, and the date published. The five main books fill that date in when you leave it blank. Taken-back cards stay on the shelf, crossed out ([ADR-0006](memory_mcp/docs/adr/0006-a-shelf-card-is-a-citation.md)). Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md).
+[`memory_mcp/`](memory_mcp/) is a Twilight shelf: `shelve_quote`, `browse_shelf`, and `take_back`. A card keeps the quote, who said it, the book, the chapter, the page, and the date published. The five main books fill that date in when you leave it blank. Taken-back cards stay on the shelf, crossed out ([ADR-0006](memory_mcp/docs/adr/0006-a-shelf-card-is-a-citation.md)). Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md).
 
 ```bash
 cd memory_mcp

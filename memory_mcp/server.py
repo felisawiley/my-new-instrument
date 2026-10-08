@@ -20,18 +20,19 @@ mcp = FastMCP(
 @mcp.tool()
 def shelve_quote(
     quote: str,
+    speaker: str = "",
     book: str = "",
     chapter: str = "",
     page: int | None = None,
     date_published: str = "",
-    speaker: str = "",
 ) -> str:
-    """Save a Twilight quote with where to find it again.
+    """Save a Twilight quote, who said it, and where to find it again.
 
-    `book`, `chapter`, `page`, and `speaker` are optional — leave blank
-    whatever you don't have. For Twilight, New Moon, Eclipse, Breaking
-    Dawn, and Midnight Sun, `date_published` fills in from the original
-    US edition when you leave it blank. Pass YYYY-MM-DD to override that.
+    `speaker` sits next to the quote. `speaker`, `book`, `chapter`, and
+    `page` are optional — leave blank whatever you don't have. For
+    Twilight, New Moon, Eclipse, Breaking Dawn, and Midnight Sun,
+    `date_published` fills in from the original US edition when you leave
+    it blank. Pass YYYY-MM-DD to override that.
     """
     quote = quote.strip()
     book = book.strip()
@@ -54,8 +55,9 @@ def shelve_quote(
         )
         card_id, ts, stored_date = cur.fetchone()
         conn.commit()
+    who = f" Speaker: {speaker}." if speaker else ""
     when = f" Published {stored_date:%Y-%m-%d}." if stored_date else ""
-    return f"Shelved as card #{card_id} at {ts.isoformat()}.{when}"
+    return f"Shelved as card #{card_id} at {ts.isoformat()}.{who}{when}"
 
 
 @mcp.tool()
