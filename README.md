@@ -47,7 +47,7 @@ Free tier note: the instance naps when idle, so the first call after a nap takes
 
 ## A memory that outlives the chat
 
-[`memory_mcp/`](memory_mcp/) is the Twilight diary: `react_to_line`, `my_reactions`, and `take_back`. The quote tool can hand out a random line forever; the diary remembers which ones you kept and what you said back. Taken-back entries stay in the table, crossed out ([ADR-0005](memory_mcp/docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md)). Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md).
+[`memory_mcp/`](memory_mcp/) is a Twilight shelf: `shelve_quote`, `browse_shelf`, and `take_back`. A card keeps the quote, the book, the chapter, the page, and the date published. The five main books fill that date in when you leave it blank. Taken-back cards stay on the shelf, crossed out ([ADR-0006](memory_mcp/docs/adr/0006-a-shelf-card-is-a-citation.md)). Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md).
 
 ```bash
 cd memory_mcp
@@ -60,7 +60,7 @@ Render does not ask for `DATABASE_URL` on an existing Blueprint. After `your-fir
 
 - [`twilight_mcp/server.py`](twilight_mcp/server.py) — the clock and Twilight-quote tools.
 - [`twilight_mcp/twilight_quotes.json`](twilight_mcp/twilight_quotes.json) — the quote data behind `twilight_quote()`.
-- [`memory_mcp/server.py`](memory_mcp/server.py) — the Twilight diary (reactions that outlive the chat).
+- [`memory_mcp/server.py`](memory_mcp/server.py) — the Twilight shelf (a quote plus where to find it).
 - [`docs/adr/`](docs/adr) — the reasoning behind the Twilight instrument's setup.
 - [`memory_mcp/docs/adr/`](memory_mcp/docs/adr/) — the reasoning behind the memory server.
 - [`render.yaml`](render.yaml) — Render deployment config.

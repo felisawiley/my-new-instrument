@@ -1,6 +1,6 @@
 # ADR-0005: A Twilight diary, and taking something back is a soft delete
 
-- Status: accepted
+- Status: superseded by ADR-0006 (the columns). The soft delete stands.
 - Date: 2026-10-08
 - Deciders: Felisa Wiley
 

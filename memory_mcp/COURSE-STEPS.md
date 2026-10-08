@@ -8,8 +8,8 @@ somewhere that outlives both the server and the chat.*
 
 [`server.py`](server.py), top to bottom. Notice:
 
-- the schema — a line, who said it, your reaction, and a taken-back timestamp
-- three tools — react, list, take back ([ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md) says why the third exists)
+- the schema — quote, book, chapter, page, date published, and a taken-back timestamp
+- three tools — shelve, browse, take back ([ADR-0006](docs/adr/0006-a-shelf-card-is-a-citation.md) is the citation; [ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md) is why the row stays)
 - what happens when `DATABASE_URL` is missing (a pointer, not a crash)
 
 ## 2. Get your database (neon.tech)
@@ -49,15 +49,16 @@ uv run server.py     # port 8000, or whatever PORT is set to
 
 Add the connector (Settings → Connectors → same flow as the Twilight server), then:
 
-- *"Keep this line, and I am unhinged about it: …"*
-- *"What have I reacted to?"*
+- *"Shelve this: … Twilight, chapter First Sight, page 12."*
+- *"What's on my shelf?"*
 - *"Take back #2."*
 - Now the real test: **start a brand-new conversation** and ask again.
-  The Twilight quote tool couldn't do that. This diary can.
+  The Twilight quote tool couldn't do that. This shelf can.
 
-## 5. The diary is yours
+## 5. The shelf is yours
 
-The placeholder `quotes` table is now `twilight_diary`: a line, an
-optional speaker, and the reaction it pulled out of you. `take_back`
-crosses an entry out and leaves the row. That choice, and the ones
-rejected, are [ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md).
+A card is a citation: the quote, the book, the chapter, the page, and
+the date published. Book, chapter, and page can be blank. The five main
+books fill the date when you don't. `take_back` still crosses a card out
+and leaves the row. That pair of choices is [ADR-0005](docs/adr/0005-a-twilight-diary-with-a-soft-take-back.md)
+and [ADR-0006](docs/adr/0006-a-shelf-card-is-a-citation.md).
