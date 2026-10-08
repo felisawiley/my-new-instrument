@@ -26,6 +26,7 @@ SCHEMA = """
 CREATE TABLE IF NOT EXISTS twilight_shelf (
     id              SERIAL PRIMARY KEY,
     quote           TEXT NOT NULL,
+    speaker         TEXT,
     book            TEXT,
     chapter         TEXT,
     page            INTEGER,
@@ -35,6 +36,8 @@ CREATE TABLE IF NOT EXISTS twilight_shelf (
 )
 """
 
+# CREATE TABLE IF NOT EXISTS does not add a column to a shelf that already
+# exists. This keeps databases created before speaker was a column.
 ADD_SPEAKER = "ALTER TABLE twilight_shelf ADD COLUMN IF NOT EXISTS speaker TEXT"
 
 COPY_FROM_DIARY = """
@@ -170,8 +173,9 @@ def format_card(
     show_taken_back,
     with_id=True,
 ):
-    who = f"{speaker}: " if speaker else ""
     where = []
+    if speaker:
+        where.append(f"speaker {speaker}")
     if book:
         where.append(book)
     if chapter:
@@ -184,8 +188,8 @@ def format_card(
     mark = " [taken back]" if taken_back_at and show_taken_back else ""
     if with_id:
         stamp = f"{shelved_at:%Y-%m-%d %H:%M}"
-        return f'#{card_id} (shelved {stamp}){mark} {who}"{quote}"{place}'
-    return f'{who}"{quote}"{place}'
+        return f'#{card_id} (shelved {stamp}){mark} "{quote}"{place}'
+    return f'"{quote}"{place}'
 
 
 def random_quote() -> str:
