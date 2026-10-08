@@ -14,9 +14,14 @@ and this repo is public.
 The connection string exists in exactly two places: Neon's dashboard
 (where it's issued) and Render's environment variables (where you paste
 it). Never in code, never in git, never in a README example with your
-real values. `render.yaml` declares the variable with `sync: false`,
-which makes Render *ask you* for the value at deploy time instead of
-reading it from the repo.
+real values. `render.yaml` declares the variable with `sync: false` so
+the value is not read from the repo.
+
+Render prompts for a `sync: false` variable only while a Blueprint is
+being created for the first time. This repo's Blueprint already exists
+(the Twilight service). A later sync adds `your-first-memory` and then
+ignores the new secret: it does not ask. Paste `DATABASE_URL` on that
+service in the dashboard. See COURSE-STEPS step 3.
 
 ## The road not taken, and why
 

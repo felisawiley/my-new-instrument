@@ -19,11 +19,24 @@ somewhere that outlives both the server and the chat.*
 3. Copy the **connection string** (starts `postgresql://…`). That string
    is a password: it goes ONE place (step 3), never in code or chat.
 
-## 3. Deploy (render.com — same Blueprint as the Twilight server)
+## 3. Put the connection string on the memory service
 
-1. Render → this repo's Blueprint (root [`render.yaml`](../render.yaml)).
-2. When Render asks for `DATABASE_URL` on the `your-first-memory` service, paste your Neon string.
-3. Deploy. The memory MCP URL is `https://<your-memory-service>.onrender.com/mcp`.
+Render asks for a `sync: false` secret only the first time a Blueprint is
+created. This repo's Blueprint already exists, so syncing it will **not**
+ask for `DATABASE_URL`. Add the variable yourself:
+
+1. The `your-first-memory` service has to exist first. It comes from
+   [`render.yaml`](../render.yaml) on this branch. If the Blueprint tracks
+   `main` and this change is not on `main` yet, merge it, then sync the
+   Blueprint. The Twilight service does not read `DATABASE_URL`.
+2. Render Dashboard → **your-first-memory** → **Environment**.
+3. **Add Environment Variable**. Key: `DATABASE_URL`. Value: the Neon
+   connection string from step 2 (it should include `sslmode=require`).
+4. Save. Render redeploys that service. The MCP URL is
+   `https://<your-memory-service>.onrender.com/mcp`.
+
+Neon's "connect to Render" button can attach the string to a different
+service. The memory server only sees a variable on `your-first-memory`.
 
 Locally, from this folder:
 

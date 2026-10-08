@@ -54,7 +54,7 @@ cd memory_mcp
 uv run server.py     # needs DATABASE_URL; see COURSE-STEPS.md step 2
 ```
 
-The Render Blueprint asks for `DATABASE_URL` on the `your-first-memory` service. Paste the Neon connection string there. It is not stored in this repo.
+Render does not ask for `DATABASE_URL` on an existing Blueprint. After `your-first-memory` exists, open that service → Environment → add `DATABASE_URL` and paste the Neon connection string. It is not stored in this repo.
 
 ## Project layout
 

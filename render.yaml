@@ -32,5 +32,7 @@ services:
     startCommand: python server.py
     envVars:
       - key: DATABASE_URL
-        sync: false   # Render asks for this at deploy time (memory ADR-0003):
-                      # paste the Neon connection string; it never touches git.
+        sync: false   # Secret. Render prompts only on the Blueprint's first
+                      # create. This Blueprint already exists, so set
+                      # DATABASE_URL on the your-first-memory service in the
+                      # dashboard (memory ADR-0003). It never touches git.
