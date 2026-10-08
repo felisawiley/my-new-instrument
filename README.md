@@ -45,12 +45,25 @@ Add the printed `https://….trycloudflare.com/mcp` URL under claude.ai → Sett
 
 Free tier note: the instance naps when idle, so the first call after a nap takes ~30s.
 
+## A memory that outlives the chat
+
+[`memory_mcp/`](memory_mcp/) is the sibling server: one Postgres table and two tools (`record_quote`, `list_quotes`). Quotes survive the end of the conversation because they live in Neon, not in the chat window. Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md). Design choices are [memory_mcp/docs/adr/](memory_mcp/docs/adr/).
+
+```bash
+cd memory_mcp
+uv run server.py     # needs DATABASE_URL; see COURSE-STEPS.md step 2
+```
+
+The Render Blueprint asks for `DATABASE_URL` on the `your-first-memory` service. Paste the Neon connection string there. It is not stored in this repo.
+
 ## Project layout
 
-- [`twilight_mcp/server.py`](twilight_mcp/server.py) — the MCP server and its tools.
+- [`twilight_mcp/server.py`](twilight_mcp/server.py) — the clock and Twilight-quote tools.
 - [`twilight_mcp/twilight_quotes.json`](twilight_mcp/twilight_quotes.json) — the quote data behind `twilight_quote()`.
-- [`docs/adr/`](docs/adr) — the reasoning behind this repo's setup choices.
-- [`render.yaml`](render.yaml) — Render deployment config (builds/runs from `twilight_mcp/` via `rootDir`).
+- [`memory_mcp/server.py`](memory_mcp/server.py) — the persistent quote memory.
+- [`docs/adr/`](docs/adr) — the reasoning behind the Twilight instrument's setup.
+- [`memory_mcp/docs/adr/`](memory_mcp/docs/adr/) — the reasoning behind the memory server.
+- [`render.yaml`](render.yaml) — Render deployment config.
 
 ## License
 
