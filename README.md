@@ -8,7 +8,7 @@ An MCP server that gives a Claude model senses it doesn't have on its own: a clo
 |---|---|
 | `current_time()` | Returns the current UTC and local time. |
 | `seconds_since(iso_timestamp)` | Returns elapsed time since a given ISO timestamp. |
-| `twilight_quote()` | Returns a random line from [`twilight_quotes.json`](twilight_mcp/twilight_quotes.json) (43 quotes). |
+| `twilight_quote()` | Returns a random line from the shelf in Neon. The starter list is [`twilight_catalog.json`](memory_mcp/twilight_catalog.json). |
 
 ## Run it locally
 
@@ -45,12 +45,25 @@ Add the printed `https://….trycloudflare.com/mcp` URL under claude.ai → Sett
 
 Free tier note: the instance naps when idle, so the first call after a nap takes ~30s.
 
+## A memory that outlives the chat
+
+[`memory_mcp/`](memory_mcp/) is a Twilight shelf: `shelve_quote`, `browse_shelf`, and `take_back`. A card keeps the quote, the book, the chapter, the page, and the date published. The five main books fill that date in when you leave it blank. Taken-back cards stay on the shelf, crossed out ([ADR-0006](memory_mcp/docs/adr/0006-a-shelf-card-is-a-citation.md)). Setup is [memory_mcp/COURSE-STEPS.md](memory_mcp/COURSE-STEPS.md).
+
+```bash
+cd memory_mcp
+uv run server.py     # needs DATABASE_URL; see COURSE-STEPS.md step 2
+```
+
+Render does not ask for `DATABASE_URL` on an existing Blueprint. After `your-first-memory` exists, open that service → Environment → add `DATABASE_URL` and paste the Neon connection string. It is not stored in this repo.
+
 ## Project layout
 
-- [`twilight_mcp/server.py`](twilight_mcp/server.py) — the MCP server and its tools.
-- [`twilight_mcp/twilight_quotes.json`](twilight_mcp/twilight_quotes.json) — the quote data behind `twilight_quote()`.
-- [`docs/adr/`](docs/adr) — the reasoning behind this repo's setup choices.
-- [`render.yaml`](render.yaml) — Render deployment config (builds/runs from `twilight_mcp/` via `rootDir`).
+- [`twilight_mcp/server.py`](twilight_mcp/server.py) — the clock and Twilight-quote tools.
+- [`memory_mcp/twilight_catalog.json`](memory_mcp/twilight_catalog.json) — the starter quotes. A connection loads them onto the shelf.
+- [`memory_mcp/server.py`](memory_mcp/server.py) — the Twilight shelf (a quote plus where to find it). `twilight_quote()` reads this table.
+- [`docs/adr/`](docs/adr) — the reasoning behind the Twilight instrument's setup.
+- [`memory_mcp/docs/adr/`](memory_mcp/docs/adr/) — the reasoning behind the memory server.
+- [`render.yaml`](render.yaml) — Render deployment config.
 
 ## License
 

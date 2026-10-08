@@ -7,8 +7,12 @@ services:
     runtime: python
     plan: free
     rootDir: twilight_mcp
-    buildCommand: pip install "mcp[cli]>=1.2,<2"  # PINNED — mcp 2.x renamed FastMCP (caught in class 2026-09-10, and again on Render 2026-09-17: this buildCommand bypasses pyproject.toml, so the pin must live in BOTH places)
+    buildCommand: pip install "mcp[cli]>=1.2,<2" "psycopg[binary]>=3.1"  # PINNED — mcp 2.x renamed FastMCP (caught in class 2026-09-10, and again on Render 2026-09-17: this buildCommand bypasses pyproject.toml, so the pin must live in BOTH places)
     startCommand: python server.py
+    envVars:
+      - key: DATABASE_URL
+        sync: false   # Same Neon string as your-first-memory. The quote list
+                      # is the shelf table now. Set it in the dashboard.
   - type: web
     name: assignment-mcp
     runtime: python
@@ -21,3 +25,18 @@ services:
         sync: false   # set in Render's dashboard, never committed
       - key: CANVAS_BASE_URL
         value: https://canvas.upenn.edu
+  - type: web
+    name: your-first-memory
+    runtime: python
+    plan: free
+    rootDir: memory_mcp
+    # PINNED — mcp 2.x renamed FastMCP. buildCommand bypasses pyproject.toml,
+    # so the pin must live in BOTH places. psycopg[binary] ships its own libpq.
+    buildCommand: pip install "mcp[cli]>=1.2,<2" "psycopg[binary]>=3.1"
+    startCommand: python server.py
+    envVars:
+      - key: DATABASE_URL
+        sync: false   # Secret. Render prompts only on the Blueprint's first
+                      # create. This Blueprint already exists, so set
+                      # DATABASE_URL on the your-first-memory service in the
+                      # dashboard (memory ADR-0003). It never touches git.
